@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="tn.esprit.controllers.AjouterEvenementController"
+      spacing="12" style="-fx-padding: 20; -fx-background-color: white;">
+
+    <Label text="➕ Ajouter un événement" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #FFA726;" />
+
+    <TextField fx:id="tfTitre" promptText="Titre"/>
+    <ComboBox fx:id="cbTypeEvenement" promptText="Type d'événement" />
+    <TextField fx:id="tfDescription" promptText="Description"/>
+    <TextField fx:id="tfLieu" promptText="Lieu"/>
+    <TextField fx:id="tfNombrePlaces" promptText="Nombre de places"/>
+    <DatePicker fx:id="dpDateDebut" promptText="Date de début"/>
+    <DatePicker fx:id="dpDateFin" promptText="Date de fin"/>
+    <TextField fx:id="tfUrlImage" promptText="URL de l'image"/>
+    <TextField fx:id="tfMail" promptText="E-mail"/>
+
+    <Button text="Enregistrer"
+            onAction="#ajouterEvenement"
+            style="-fx-background-color: #FFD54F; -fx-text-fill: white; -fx-font-weight: bold;" />
+</VBox>

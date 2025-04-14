@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.ModifierEvenementController"
+            style="-fx-background-color: white;">
+    <children>
+        <VBox spacing="15" alignment="CENTER" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
+              style="-fx-padding: 30;">
+
+            <Label text="✏️ Modifier l'Événement" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #FFA726;" />
+
+            <HBox spacing="10"><Label text="Titre :" minWidth="150"/><TextField fx:id="tfTitre" /></HBox>
+            <HBox spacing="10"><Label text="Type d'événement :" minWidth="150"/><ComboBox fx:id="cbTypeEvenement" /></HBox>
+            <HBox spacing="10"><Label text="Description :" minWidth="150"/><TextField fx:id="tfDescription" /></HBox>
+            <HBox spacing="10"><Label text="Lieu :" minWidth="150"/><TextField fx:id="tfLieu" /></HBox>
+            <HBox spacing="10"><Label text="Nombre de places :" minWidth="150"/><TextField fx:id="tfNombrePlaces" /></HBox>
+            <HBox spacing="10"><Label text="Date de début :" minWidth="150"/><DatePicker fx:id="dpDateDebut" /></HBox>
+            <HBox spacing="10"><Label text="Date de fin :" minWidth="150"/><DatePicker fx:id="dpDateFin" /></HBox>
+            <HBox spacing="10"><Label text="Statut :" minWidth="150"/><TextField fx:id="tfStatut" /></HBox>
+            <HBox spacing="10"><Label text="URL de l'image :" minWidth="150"/><TextField fx:id="tfUrlImage" /></HBox>
+            <HBox spacing="10"><Label text="E-mail :" minWidth="150"/><TextField fx:id="tfMail" /></HBox>
+
+            <HBox spacing="20" alignment="CENTER">
+                <Button text="💾 Modifier" onAction="#modifierEvenement"
+                        style="-fx-background-color: #FFD54F; -fx-text-fill: white;"/>
+                <Button text="❌ Annuler" onAction="#annulerModification"
+                        style="-fx-background-color: #FFB74D; -fx-text-fill: white;"/>
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>

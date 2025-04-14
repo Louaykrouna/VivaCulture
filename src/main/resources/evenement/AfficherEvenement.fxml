@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/fxml"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="tn.esprit.controllers.AfficherEvenementController"
+      spacing="15"
+      style="-fx-background-color: white; -fx-padding: 20;">
+
+    <!-- Bloc principal encadré en orange -->
+    <VBox spacing="15"
+          style="
+            -fx-background-color: white;
+            -fx-border-color: #FFA726;
+            -fx-border-width: 1.5;
+            -fx-border-radius: 6;
+            -fx-background-radius: 6;
+            -fx-padding: 15;">
+
+        <!-- Titre + bouton Ajouter -->
+        <HBox spacing="10" alignment="CENTER_LEFT">
+            <Label text="📋 Liste des Événements"
+                   style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #FFA726;"/>
+            <Button text="➕ Ajouter un événement"
+                    onAction="#handleAjouterEvenement"
+                    style="
+                      -fx-background-color: #FFB84D;
+                      -fx-text-fill: white;
+                      -fx-font-weight: bold;
+                      -fx-pref-height: 36px;"/>
+        </HBox>
+
+        <!-- Conteneur des événements -->
+        <VBox fx:id="vboxEvenements"
+              spacing="10"
+              style="
+                -fx-background-color: #fffbea;
+                -fx-padding: 12;
+                -fx-background-radius: 4;
+                -fx-border-radius: 4;">
+            <!-- Les événements seront ajoutés dynamiquement ici -->
+        </VBox>
+    </VBox>
+</VBox>

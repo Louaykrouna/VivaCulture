@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            xmlns:shape="http://javafx.com/javafx/shape"
+            fx:controller="tn.esprit.controllers.SigninController"
+            prefHeight="600.0" prefWidth="800.0"
+            stylesheets="@styles.css">
+
+
+
+    <!-- Login Form Container -->
+    <VBox alignment="CENTER" spacing="20" layoutX="250" layoutY="150" prefWidth="300" prefHeight="400">
+        <padding>
+            <Insets top="20" bottom="20" left="20" right="20"/>
+        </padding>
+
+        <!-- App Title -->
+        <Label text="VivaCulture" styleClass="app-title"/>
+
+        <!-- Email Field -->
+        <TextField fx:id="emailField" promptText="Email" styleClass="input-field"/>
+
+        <!-- Password Field -->
+        <PasswordField fx:id="passwordField" promptText="Password" styleClass="input-field"/>
+
+        <!-- Sign In Button -->
+        <Button text="Sign In" onAction="#handleSignIn" styleClass="sign-in-button"/>
+
+        <!-- Register Link -->
+        <HBox spacing="5" alignment="CENTER">
+            <Label text="Don't have an account?" styleClass="register-text"/>
+            <Hyperlink text="Sign Up" onAction="#handleSignUp" styleClass="register-link"/>
+        </HBox>
+    </VBox>
+</AnchorPane>

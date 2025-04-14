@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="tn.esprit.controllers.DashboardController"
+      alignment="CENTER"
+      spacing="20"
+      prefWidth="1200"
+      prefHeight="700"
+      stylesheets="@styles.css">
+
+    <!-- Navbar -->
+    <HBox styleClass="navbar" alignment="CENTER_LEFT" spacing="20" prefHeight="60">
+        <!-- Branding -->
+        <Label text="VivaCulture" styleClass="brand-name" />
+        <!-- Spacer -->
+        <Region HBox.hgrow="ALWAYS" />
+        <!-- Action Buttons -->
+        <Button text="Logout" onAction="#logout" styleClass="navbar-button" />
+        <Button text="Return to Home" onAction="#returnToHome" styleClass="navbar-button" />
+    </HBox>
+
+    <!-- Main Content -->
+    <VBox alignment="CENTER" spacing="20" VBox.vgrow="ALWAYS" styleClass="main-content">
+        <!-- Title -->
+        <Label text="Admin Dashboard" styleClass="app-title" />
+
+        <!-- Table View for Users -->
+        <TableView fx:id="userTable" prefWidth="1000" prefHeight="400" styleClass="user-table">
+            <columns>
+                <TableColumn text="ID" prefWidth="50" fx:id="idColumn" />
+                <TableColumn text="Name" prefWidth="150" fx:id="nameColumn" />
+                <TableColumn text="Email" prefWidth="200" fx:id="emailColumn" />
+                <TableColumn text="Role" prefWidth="100" fx:id="roleColumn" />
+                <TableColumn text="Status" prefWidth="100" fx:id="statusColumn" />
+                <TableColumn text="Actions" prefWidth="100" fx:id="actionsColumn" />
+            </columns>
+        </TableView>
+
+        <!-- Action Buttons -->
+        <HBox spacing="10" alignment="CENTER">
+            <Button text="Add User" onAction="#addUser" styleClass="action-button" />
+            <Button text="Update User" onAction="#updateUser" styleClass="action-button" />
+            <Button text="Delete User" onAction="#deleteUser" styleClass="action-button" />
+            <Button text="Ban User" onAction="#banUser" styleClass="action-button" />
+            <Button text="Unban User" onAction="#unbanUser" styleClass="action-button" />
+        </HBox>
+    </VBox>
+</VBox>

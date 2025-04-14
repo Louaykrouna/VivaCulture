@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="tn.esprit.controllers.SignupController"
+      alignment="CENTER"
+      spacing="20"
+      prefWidth="600"
+      prefHeight="800"
+      stylesheets="@styles.css">
+
+    <!-- Title -->
+    <Label text="Create an Account" styleClass="app-title" />
+
+    <!-- First Name Field -->
+    <TextField fx:id="firstNameField" promptText="First Name" styleClass="input-field" />
+
+    <!-- Last Name Field -->
+    <TextField fx:id="lastNameField" promptText="Last Name" styleClass="input-field" />
+
+    <!-- Email Field -->
+    <TextField fx:id="emailField" promptText="Email" styleClass="input-field" />
+
+    <!-- Password Field -->
+    <PasswordField fx:id="passwordField" promptText="Password" styleClass="input-field" />
+
+    <!-- Phone Number Field -->
+    <TextField fx:id="phoneField" promptText="Phone Number" styleClass="input-field" />
+
+    <!-- Gender Field -->
+    <ComboBox fx:id="genderField" promptText="Gender" styleClass="input-field">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Male" />
+                <String fx:value="Female" />
+                <String fx:value="Other" />
+            </FXCollections>
+        </items>
+    </ComboBox>
+
+    <!-- Address Field -->
+    <TextField fx:id="addressField" promptText="Address" styleClass="input-field" />
+
+    <!-- Company Name Field -->
+    <TextField fx:id="companyNameField" promptText="Company Name (Optional)" styleClass="input-field" />
+
+    <!-- Matricule Field -->
+    <TextField fx:id="matriculeField" promptText="Matricule (Optional)" styleClass="input-field" />
+
+    <!-- Role Field -->
+    <ComboBox fx:id="roleField" promptText="Role" styleClass="input-field">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Admin" />
+                <String fx:value="User" />
+                <String fx:value="Organizer" />
+            </FXCollections>
+        </items>
+    </ComboBox>
+
+    <!-- Status Field -->
+    <ComboBox fx:id="statusField" promptText="Status" styleClass="input-field">
+        <items>
+            <FXCollections fx:factory="observableArrayList">
+                <String fx:value="Active" />
+                <String fx:value="Inactive" />
+            </FXCollections>
+        </items>
+    </ComboBox>
+
+    <!-- Sign Up Button -->
+    <Button text="Sign Up" onAction="#handleSignUp" styleClass="sign-in-button" />
+
+    <!-- Back to Sign In Link -->
+    <HBox spacing="5" alignment="CENTER">
+        <Label text="Already have an account?" styleClass="register-text" />
+        <Hyperlink text="Sign In" onAction="#navigateToSignIn" styleClass="register-link" />
+    </HBox>
+</VBox>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.control.Button?>
+<AnchorPane prefHeight="503.0" prefWidth="712.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ticketInfocontroller" style="-fx-background-color: #f4f4f4;">
+
+   <children>
+      <!-- Titre centré avec couleur orange -->
+      <Label layoutX="0.0" layoutY="43.0" text="Ticket Info" textFill="#FFA500FF" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-alignment: center; -fx-text-align: center; -fx-pref-width: 712px;"/>
+
+      <!-- Conteneur principal avec champ d'entrée et style -->
+      <VBox layoutX="40.0" layoutY="100.0" spacing="20.0" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ddd; -fx-border-width: 1;">
+         <!-- Nom -->
+         <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <Label text="Nom" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+            <TextField fx:id="NomTK" editable="false" style="-fx-background-color: #fffbea; -fx-padding: 8; -fx-background-radius: 5px; -fx-pref-width: 250px;"/>
+         </HBox>
+
+         <!-- Prénom -->
+         <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <Label text="Prenom" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+            <TextField fx:id="prenomTK" editable="false" style="-fx-background-color: #fffbea; -fx-padding: 8; -fx-background-radius: 5px; -fx-pref-width: 250px;"/>
+         </HBox>
+
+         <!-- Numéro téléphone -->
+         <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <Label text="Numéro Téléphone" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+            <TextField fx:id="numTK" editable="false" style="-fx-background-color: #fffbea; -fx-padding: 8; -fx-background-radius: 5px; -fx-pref-width: 250px;"/>
+         </HBox>
+
+         <!-- Date -->
+         <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <Label text="Date" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+            <DatePicker fx:id="dateTK" editable="false" style="-fx-background-color: #fffbea; -fx-padding: 8; -fx-background-radius: 5px; -fx-pref-width: 250px;"/>
+         </HBox>
+
+         <!-- Email -->
+         <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <Label text="Email" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+            <TextField fx:id="emailTK" editable="false" style="-fx-background-color: #fffbea; -fx-padding: 8; -fx-background-radius: 5px; -fx-pref-width: 250px;"/>
+         </HBox>
+
+         <!-- Prix -->
+         <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <Label text="Prix" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+            <TextField fx:id="prixTK" editable="false" style="-fx-background-color: #fffbea; -fx-padding: 8; -fx-background-radius: 5px; -fx-pref-width: 250px;"/>
+         </HBox>
+
+         <!-- ID Réservation -->
+         <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <Label text="Réservation ID" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+            <TextField fx:id="IDRTK" editable="false" style="-fx-background-color: #fffbea; -fx-padding: 8; -fx-background-radius: 5px; -fx-pref-width: 250px;"/>
+         </HBox>
+      </VBox>
+      <!-- Bouton retour -->
+      <HBox alignment="CENTER_RIGHT">
+         <Button text="Retour" onAction="#retourVersAjouterTicket"
+                 style="-fx-background-color: #FFA500; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 5px;" />
+      </HBox>
+
+   </children>
+</AnchorPane>

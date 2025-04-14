@@ -1,0 +1,56 @@
+/* styles.css */
+
+/* Style pour l'ensemble de l'AnchorPane */
+.root {
+    -fx-background-color: #f9f9f9; /* Fond gris clair */
+}
+
+/* Style des Labels */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333; /* Texte gris foncé */
+    -fx-font-weight: bold;
+}
+
+/* Style des TextField */
+.text-field {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-padding: 5px;
+}
+
+/* Style des DatePicker */
+.date-picker {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-width: 1px;
+    -fx-padding: 5px;
+}
+
+/* Style des boutons */
+.button {
+    -fx-background-color: #cc392f; /* Couleur rouge */
+    -fx-text-fill: white; /* Texte blanc */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px 20px;
+}
+
+/* Style du bouton "Supprimer" avec une couleur différente */
+#supprimer {
+    -fx-background-color: #ff6347; /* Rouge tomate */
+    -fx-text-fill: white;
+}
+
+#modifier {
+    -fx-background-color: #4CAF50; /* Vert */
+    -fx-text-fill: white;
+}
+
+/* Style pour le Label principal (titre) */
+.label-titre {
+    -fx-font-size: 20px;
+    -fx-text-fill: #cc392f; /* Texte rouge */
+    -fx-font-weight: bold;
+}

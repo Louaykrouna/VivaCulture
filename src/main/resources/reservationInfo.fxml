@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="503.0" prefWidth="712.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.reservationInfocontroller" style="-fx-background-color: #f4f4f4;">
+   <children>
+      <!-- Titre centré avec couleur orange -->
+      <Label layoutX="0.0" layoutY="43.0" text="Résérvation Info" textFill="#FFA500FF" style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-alignment: center; -fx-text-align: center; -fx-pref-width: 712px;"/>
+
+      <!-- Conteneur principal avec champ d'entrée et style -->
+      <VBox layoutX="40.0" layoutY="100.0" spacing="20.0" style="-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #ddd; -fx-border-width: 1;">
+         <!-- Nom Evenement -->
+         <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <Label text="Nom Evenement" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+            <TextField fx:id="eventDisplay" editable="false" style="-fx-background-color: #fffbea; -fx-padding: 8; -fx-background-radius: 5px; -fx-pref-width: 250px;"/>
+         </HBox>
+
+         <!-- Email -->
+         <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <Label text="Email" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+            <TextField fx:id="emailDisplay" editable="false" style="-fx-background-color: #fffbea; -fx-padding: 8; -fx-background-radius: 5px; -fx-pref-width: 250px;"/>
+         </HBox>
+
+         <!-- Nombre de tickets -->
+         <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <Label text="Nombre de Tickets" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+            <TextField fx:id="NbrDisplay" editable="false" style="-fx-background-color: #fffbea; -fx-padding: 8; -fx-background-radius: 5px; -fx-pref-width: 250px;"/>
+         </HBox>
+
+         <!-- Date -->
+         <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <Label text="Date" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+            <DatePicker fx:id="dateDisplay" editable="false" style="-fx-background-color: #fffbea; -fx-padding: 8; -fx-background-radius: 5px; -fx-pref-width: 250px;"/>
+         </HBox>
+
+         <!-- Heure -->
+         <HBox spacing="10.0" alignment="CENTER_LEFT">
+            <Label text="Heure" style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #333333;"/>
+            <TextField fx:id="heureDisplay" editable="false" style="-fx-background-color: #fffbea; -fx-padding: 8; -fx-background-radius: 5px; -fx-pref-width: 250px;"/>
+         </HBox>
+      </VBox>
+   </children>
+</AnchorPane>

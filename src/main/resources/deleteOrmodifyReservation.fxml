@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.deleteOrmodifyReservationcontroller" stylesheets="@styles.css">
+   <children>
+      <Label layoutX="130.0" layoutY="20.0" text="Modifier ou Supprimer la réservation" textFill="#cc392f">
+         <font>
+            <Font name="System Bold" size="20.0" />
+         </font>
+      </Label>
+
+      <Label layoutX="50.0" layoutY="80.0" text="Nom événement:"/>
+      <TextField fx:id="tfNomEvenement" layoutX="180.0" layoutY="75.0" prefWidth="300.0"/>
+
+      <Label layoutX="50.0" layoutY="120.0" text="Nombre de tickets:"/>
+      <TextField fx:id="tfNombreTickets" layoutX="180.0" layoutY="115.0" prefWidth="300.0"/>
+
+      <Label layoutX="50.0" layoutY="160.0" text="Date:"/>
+      <DatePicker fx:id="dpDate" layoutX="180.0" layoutY="155.0" prefWidth="300.0"/>
+
+      <Label layoutX="50.0" layoutY="200.0" text="Heure (HH:MM:SS):"/>
+      <TextField fx:id="tfHeure" layoutX="180.0" layoutY="195.0" prefWidth="300.0"/>
+
+      <Label layoutX="50.0" layoutY="240.0" text="Email:"/>
+      <TextField fx:id="tfEmail" layoutX="180.0" layoutY="235.0" prefWidth="300.0"/>
+
+      <Button fx:id="modifier" layoutX="180.0" layoutY="300.0" text="Modifier" />
+      <Button fx:id="supprimer" layoutX="300.0" layoutY="300.0" text="Supprimer" textFill="#cc392f" />
+   </children>
+</AnchorPane>
+

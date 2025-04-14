@@ -1,0 +1,24 @@
+/* style.css */
+
+/* Style du ListView */
+#listTickets {
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #FFA500; /* Couleur orange */
+    -fx-border-width: 2px;
+    -fx-font-size: 14px;
+    -fx-padding: 10px;
+}
+
+/* Style des boutons (si tu en as) */
+.button {
+    -fx-background-color: #FFA500;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.button:hover {
+    -fx-background-color: #e68a00; /* Teinte plus foncée pour hover */
+}

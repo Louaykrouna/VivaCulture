@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="480.0" prefWidth="700.0"
+            xmlns="http://javafx.com/javafx/23.0.1"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controllers.reservationcontroller"
+            style="-fx-background-color: #ffffff;">
+   <children>
+
+      <!-- Cadre stylisé centré -->
+      <VBox layoutX="100.0" layoutY="40.0" spacing="12.0"
+            prefWidth="500.0" style="
+                -fx-background-color: #fdfdfd;
+                -fx-border-color: orange;
+                -fx-border-width: 1.5;
+                -fx-border-radius: 10;
+                -fx-background-radius: 10;
+                -fx-padding: 25;">
+
+         <Label text="📅 Réservation Événement"
+                style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: orange;" />
+
+         <Label text="Nom Événement" style="-fx-text-fill: #cc392f; -fx-font-weight: bold;" />
+         <TextField fx:id="NomEV" promptText="Saisir le nom de l'événement" />
+
+         <Label text="Nombre de Tickets" style="-fx-text-fill: #cc392f; -fx-font-weight: bold;" />
+         <TextField fx:id="Nmbr" promptText="Ex: 2" />
+
+         <Label text="Date de Réservation" style="-fx-text-fill: #cc392f; -fx-font-weight: bold;" />
+         <DatePicker fx:id="DateDT" />
+
+         <Label text="Heure" style="-fx-text-fill: #cc392f; -fx-font-weight: bold;" />
+         <TextField fx:id="Hour" promptText="HH:MM" />
+
+         <Label text="Email" style="-fx-text-fill: #cc392f; -fx-font-weight: bold;" />
+         <TextField fx:id="EmailR" promptText="email@exemple.com" />
+
+         <!-- Boutons d'action -->
+         <VBox spacing="10" alignment="CENTER" style="-fx-padding: 10;">
+            <Button fx:id="AffBT" text="📄 Afficher" onAction="#Afficherreservation"
+                    style="
+                            -fx-background-color: #ffeb3b;
+                            -fx-text-fill: white;
+                            -fx-font-weight: bold;
+                            -fx-background-radius: 6;
+                            -fx-pref-width: 150px;" />
+
+            <Button text="➕ Ajouter" onAction="#Ajouterreservation"
+                    style="
+                            -fx-background-color: orange;
+                            -fx-text-fill: white;
+                            -fx-font-weight: bold;
+                            -fx-background-radius: 6;
+                            -fx-pref-width: 150px;" />
+
+            <Button fx:id="btnAjouterTicket" text="🎫 Ajouter Ticket" onAction="#goToAjouterTicket"
+                    style="
+                            -fx-background-color: #cc392f;
+                            -fx-text-fill: white;
+                            -fx-font-weight: bold;
+                            -fx-background-radius: 6;
+                            -fx-pref-width: 150px;" />
+         </VBox>
+      </VBox>
+   </children>
+</AnchorPane>

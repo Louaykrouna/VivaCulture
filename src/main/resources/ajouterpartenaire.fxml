@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="700.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.controllers.AjouterPartenaireController">
+
+    <children>
+        <!-- Header -->
+        <AnchorPane prefHeight="70.0" prefWidth="700.0" style="-fx-background-color: #FF4040;">
+            <children>
+                <ImageView fitHeight="64.0" fitWidth="47.0" layoutX="20.0" layoutY="3.0">
+                    <image>
+                        <Image url="@../../../../../Downloads/event.png" />
+                    </image>
+                </ImageView>
+                <Label layoutX="80.0" layoutY="20.0" style="-fx-font-size: 22px; -fx-font-weight: bold;" text="Ajouter un partenaire" textFill="WHITE" />
+            </children>
+        </AnchorPane>
+
+        <!-- Form Fields -->
+        <VBox layoutX="100.0" layoutY="100.0" prefWidth="500.0" spacing="20.0">
+            <children>
+                <!-- ID -->
+                <HBox spacing="10.0">
+                    <children>
+                        <ImageView fitHeight="24.0" fitWidth="24.0">
+                            <image><Image url="@icons/id.png" /></image>
+                        </ImageView>
+                        <TextField fx:id="idPField" prefWidth="400.0" promptText="ex: P001" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+                    </children>
+                </HBox>
+
+                <!-- Nom -->
+                <HBox spacing="10.0">
+                    <children>
+                        <ImageView fitHeight="24.0" fitWidth="24.0">
+                            <image><Image url="@/icons/user.png" /></image>
+                        </ImageView>
+                        <TextField fx:id="nomPField" prefWidth="400.0" promptText="Nom du partenaire" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+                    </children>
+                </HBox>
+
+                <!-- Email -->
+                <HBox spacing="10.0">
+                    <children>
+                        <ImageView fitHeight="24.0" fitWidth="24.0">
+                            <image><Image url="@/icons/mail (1).png" /></image>
+                        </ImageView>
+                        <TextField fx:id="emailPField" prefWidth="400.0" promptText="ex: partenaire@email.com" style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+                    </children>
+                </HBox>
+
+                <!-- Téléphone -->
+                <HBox spacing="10.0">
+                    <children>
+                        <ImageView fitHeight="24.0" fitWidth="24.0">
+                            <image><Image url="@/icons/phone.png" /></image>
+                        </ImageView>
+                        <TextField fx:id="telephoneField" prefWidth="400.0" promptText="ex: +216..." style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+                    </children>
+                </HBox>
+
+                <!-- Type -->
+                <HBox spacing="10.0">
+                    <children>
+                        <ImageView fitHeight="24.0" fitWidth="24.0">
+                            <image><Image url="@/icons/type.png" /></image>
+                        </ImageView>
+                        <TextField fx:id="typePField" prefWidth="400.0" promptText="ex: sponsor, média, etc." style="-fx-background-radius: 10; -fx-border-radius: 10;" />
+                    </children>
+                </HBox>
+
+            </children>
+        </VBox>
+
+        <!-- Submit Button -->
+        <Button fx:id="ajouterBtn" layoutX="250.0" layoutY="500.0" onAction="#ajouterPartenaire" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #FF4040; -fx-background-radius: 20;" text="Ajouter" textFill="WHITE">
+            <font><Font name="System Bold Italic" size="16.0" /></font>
+        </Button>
+      <ComboBox fx:id="combofield" layoutX="135.0" layoutY="326.0" prefHeight="26.0" prefWidth="400.0" />
+    </children>
+</AnchorPane>

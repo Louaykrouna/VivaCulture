@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="tn.esprit.controllers.ModifierPartenaireController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+
+    <TextField fx:id="idPField" promptText="ID Partenaire"/>
+    <TextField fx:id="nomPField" promptText="Nom"/>
+    <TextField fx:id="emailPField" promptText="Email"/>
+    <TextField fx:id="telephoneField" promptText="Téléphone"/>
+    <TextField fx:id="typePField" promptText="Type"/>
+
+    <Button text="Enregistrer" onAction="#savePartenaire"/>
+</VBox>

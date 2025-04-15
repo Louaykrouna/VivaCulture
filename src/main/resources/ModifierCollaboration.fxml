@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.controllers.ModifierCollaborationController">
+    <children>
+        <VBox alignment="TOP_CENTER" spacing="15.0" layoutX="20.0" layoutY="20.0" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.rightAnchor="10">
+            <children>
+
+                <Label text="Modifier Collaboration" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+                <HBox spacing="10">
+                    <Label text="Nom Collaboration:" />
+                    <TextField fx:id="tfNom" promptText="Nom" />
+                </HBox>
+
+                <HBox spacing="10">
+                    <Label text="Type:" />
+                    <TextField fx:id="tfType" promptText="Type" />
+                </HBox>
+
+                <HBox spacing="10">
+                    <Label text="Statut:" />
+                    <TextField fx:id="tfStatus" promptText="Statut" />
+                </HBox>
+
+                <HBox spacing="10">
+                    <Label text="Date Signature:" />
+                    <DatePicker fx:id="dpDateSig" />
+                </HBox>
+
+                <HBox spacing="10">
+                    <Label text="Date Expiration:" />
+                    <DatePicker fx:id="dpDateEx" />
+                </HBox>
+
+                <HBox spacing="15" alignment="CENTER">
+                    <Button text="Enregistrer" fx:id="btnSave" onAction="#handleSave" style="-fx-background-color: #27ae60; -fx-text-fill: white;" />
+                    <Button text="Annuler" onAction="#handleCancel" style="-fx-background-color: #c0392b; -fx-text-fill: white;" />
+                </HBox>
+            </children>
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

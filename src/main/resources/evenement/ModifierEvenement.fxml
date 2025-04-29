@@ -48,14 +48,33 @@
                 <TextField fx:id="tfStatut" promptText="Statut" />
             </HBox>
 
-            <HBox spacing="10">
-                <Label text="URL de l'image :" minWidth="150"/>
-                <TextField fx:id="tfUrlImage" promptText="Image URL" />
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="URL Image :" style="-fx-text-fill: #FFA726; -fx-font-weight: bold;"/>
+                <TextField fx:id="tfUrlImage" prefWidth="250"/>
+                <!-- bouton Parcourir ajouté -->
+                <Button fx:id="btnBrowseImage"
+                        text="Parcourir…"
+                        style="
+              -fx-background-color: #FFD54F;
+              -fx-text-fill: white;
+              -fx-font-weight: bold;
+              -fx-pref-height: 30px;
+              -fx-background-radius: 4;"/>
             </HBox>
 
             <HBox spacing="10">
                 <Label text="E-mail :" minWidth="150"/>
                 <TextField fx:id="tfMail" promptText="Email" />
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Longitude :" minWidth="150"/>
+                <TextField fx:id="tfLongitude" promptText="Longitude" />
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Latitude :" minWidth="150"/>
+                <TextField fx:id="tfLatitude" promptText="Latitude" />
             </HBox>
 
             <HBox spacing="20" alignment="CENTER">

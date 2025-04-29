@@ -1,23 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="tn.esprit.controllers.AjouterEvenementController"
-      spacing="12" style="-fx-padding: 20; -fx-background-color: white;">
+<?import javafx.scene.text.Text?>
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="tn.esprit.controllers.AjouterEvenementController"
+      spacing="5" alignment="TOP_CENTER"
+      style="
+        -fx-padding: 30;
+        -fx-background-color: white;
+        -fx-border-color: #FFA726;
+        -fx-border-width: 2;
+        -fx-border-radius: 6;
+        -fx-background-radius: 6;
+      ">
 
-    <Label text="➕ Ajouter un événement" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #FFA726;" />
+    <Label text="➕ Ajouter un évènement"
+           style="-fx-font-size:20px; -fx-font-weight:bold; -fx-text-fill:#FFA726;"/>
 
-    <TextField fx:id="tfTitre" promptText="Titre"/>
-    <ComboBox fx:id="cbTypeEvenement" promptText="Type d'événement" />
-    <TextField fx:id="tfDescription" promptText="Description"/>
-    <TextField fx:id="tfLieu" promptText="Lieu"/>
-    <TextField fx:id="tfNombrePlaces" promptText="Nombre de places"/>
-    <DatePicker fx:id="dpDateDebut" promptText="Date de début"/>
-    <DatePicker fx:id="dpDateFin" promptText="Date de fin"/>
-    <TextField fx:id="tfUrlImage" promptText="URL de l'image"/>
-    <TextField fx:id="tfMail" promptText="E-mail"/>
+    <Label fx:id="lblTitreError"     text="" visible="false" managed="false"/>
+    <TextField fx:id="tfTitre"        promptText="Titre"              prefWidth="400"/>
 
-    <Button text="Enregistrer"
-            onAction="#ajouterEvenement"
-            style="-fx-background-color: #FFD54F; -fx-text-fill: white; -fx-font-weight: bold;" />
+    <Label fx:id="lblTypeError"      text="" visible="false" managed="false"/>
+    <ComboBox fx:id="cbTypeEvenement" promptText="Type d'événement"   prefWidth="400"/>
+
+    <Label fx:id="lblDescriptionError" text="" visible="false" managed="false"/>
+    <TextField fx:id="tfDescription"    promptText="Description"      prefWidth="400"/>
+
+    <Label fx:id="lblLieuError"       text="" visible="false" managed="false"/>
+    <TextField fx:id="tfLieu"           promptText="Lieu"             prefWidth="400"/>
+    <Button fx:id="btnMeteo" text="Voir météo" onAction="#handleVoirMeteo" styleClass="button-info"/>
+    <Text fx:id="weatherInfo"
+          layoutX="450" layoutY="240"
+          wrappingWidth="300"
+          text="Ici apparaîtront les températures." />
+
+    <Label fx:id="lblPlacesError"     text="" visible="false" managed="false"/>
+    <TextField fx:id="tfNombrePlaces"  promptText="Nombre de places" prefWidth="400"/>
+
+    <Label fx:id="lblDateDebutError"  text="" visible="false" managed="false"/>
+    <DatePicker fx:id="dpDateDebut"    promptText="Date de début"    prefWidth="400"/>
+
+    <Label fx:id="lblDateFinError"    text="" visible="false" managed="false"/>
+    <DatePicker fx:id="dpDateFin"      promptText="Date de fin"      prefWidth="400"/>
+
+    <Label fx:id="lblLongitudeError"  text="" visible="false" managed="false"/>
+    <TextField fx:id="tfLongitude"     promptText="Longitude"        prefWidth="400"/>
+
+    <Label fx:id="lblLatitudeError"   text="" visible="false" managed="false"/>
+    <TextField fx:id="tfLatitude"      promptText="Latitude"         prefWidth="400"/>
+
+    <Label fx:id="lblUrlImageError"   text="" visible="false" managed="false"/>
+    <HBox spacing="15" alignment="CENTER_LEFT">
+        <Label text="URL Image :" style="-fx-text-fill:#FFA726;-fx-font-weight:bold;"/>
+        <TextField fx:id="tfUrlImage" prefWidth="300"/>
+        <Button fx:id="btnBrowseImage" text="Parcourir…"
+                style="-fx-background-color:#FFD54F;
+                       -fx-text-fill:white;
+                       -fx-font-weight:bold;
+                       -fx-pref-height:30px;
+                       -fx-background-radius:4;"/>
+    </HBox>
+
+    <Label fx:id="lblMailError"      text="" visible="false" managed="false"/>
+    <TextField fx:id="tfMail"         promptText="E-mail"            prefWidth="400"/>
+
+    <Button text="Enregistrer" onAction="#ajouterEvenement"
+            style="-fx-background-color:#FFD54F;
+                   -fx-text-fill:white;
+                   -fx-font-weight:bold;
+                   -fx-pref-width:150px;
+                   -fx-pref-height:36px;"/>
 </VBox>

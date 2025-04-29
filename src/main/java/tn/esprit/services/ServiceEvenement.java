@@ -16,7 +16,7 @@ public class ServiceEvenement {
     }
 
     public void ajouterEvenement(Evenement e) {
-        String req = "INSERT INTO evenement (type_evenement_id, titre, description, lieu, nombre_places, date_debut, date_fin, statut, url_image, mail) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String req = "INSERT INTO evenement (type_evenement_id, titre, description, lieu, nombre_places, date_debut, date_fin, statut, url_image, mail, longitude, latitude) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pst = conn.prepareStatement(req)) {
             pst.setInt(1, e.getTypeEvenementId());
             pst.setString(2, e.getTitre());
@@ -28,6 +28,8 @@ public class ServiceEvenement {
             pst.setString(8, "en attente"); // Le statut est toujours "en attente"
             pst.setString(9, e.getUrlImage());
             pst.setString(10, e.getMail());
+            pst.setDouble(11, e.getLongitude());
+            pst.setDouble(12, e.getLatitude());
             pst.executeUpdate();
             System.out.println("✅ Événement ajouté !");
         } catch (SQLException ex) {
@@ -51,7 +53,9 @@ public class ServiceEvenement {
                         rs.getDate("date_fin").toLocalDate(),
                         rs.getString("statut"),
                         rs.getString("url_image"),
-                        rs.getString("mail")
+                        rs.getString("mail"),
+                        rs.getDouble("longitude"),
+                        rs.getDouble("latitude")
                 );
                 e.setTypeEvenementNom(rs.getString("nom_type"));
                 list.add(e);
@@ -63,7 +67,7 @@ public class ServiceEvenement {
     }
 
     public void modifierEvenement(Evenement e) {
-        String req = "UPDATE evenement SET type_evenement_id=?, titre=?, description=?, lieu=?, nombre_places=?, date_debut=?, date_fin=?, statut=?, url_image=?, mail=? WHERE id=?";
+        String req = "UPDATE evenement SET type_evenement_id=?, titre=?, description=?, lieu=?, nombre_places=?, date_debut=?, date_fin=?, statut=?, url_image=?, mail=?, longitude=?, latitude=? WHERE id=?";
         try (PreparedStatement pst = conn.prepareStatement(req)) {
             pst.setInt(1, e.getTypeEvenementId());
             pst.setString(2, e.getTitre());
@@ -75,7 +79,9 @@ public class ServiceEvenement {
             pst.setString(8, "en attente"); // Le statut reste "en attente"
             pst.setString(9, e.getUrlImage());
             pst.setString(10, e.getMail());
-            pst.setInt(11, e.getId());
+            pst.setDouble(11, e.getLongitude());
+            pst.setDouble(12, e.getLatitude());
+            pst.setInt(13, e.getId());
             pst.executeUpdate();
             System.out.println("✏️ Événement modifié !");
         } catch (SQLException ex) {

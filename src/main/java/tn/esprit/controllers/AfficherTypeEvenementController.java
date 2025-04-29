@@ -2,15 +2,23 @@ package tn.esprit.controllers;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tn.esprit.entities.TypeEvenement;
 import tn.esprit.services.ServiceTypeEvenement;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -35,88 +43,145 @@ public class AfficherTypeEvenementController {
         refresh();
     }
 
+    @FXML
     public void refresh() {
         vboxTypes.getChildren().clear();
-        List<TypeEvenement> types = serviceTypeEvenement.afficherTypeEvenements();
 
-        for (TypeEvenement t : types) {
-            HBox hbox = new HBox(10);
 
-            // Nom cliquable et stylisé
-            Label nom = new Label(t.getNom());
-            nom.setStyle("-fx-text-fill: blue; -fx-underline: true; -fx-cursor: hand;");
-            nom.setOnMouseEntered(event -> nom.setStyle("-fx-text-fill: red; -fx-underline: true; -fx-cursor: hand;"));
-            nom.setOnMouseExited(event -> nom.setStyle("-fx-text-fill: blue; -fx-underline: true; -fx-cursor: hand;"));
-            nom.setOnMouseClicked(event -> {
+            List<TypeEvenement> types = serviceTypeEvenement.afficherTypeEvenements();
+
+            for (TypeEvenement t : types) {
+                HBox ligne = new HBox(15);
+                ligne.setAlignment(Pos.CENTER_LEFT);
+                ligne.setStyle(
+                        "-fx-padding: 10; " +
+                                "-fx-background-color: #fffbea; " +
+                                "-fx-border-color: #FFA726; " +
+                                "-fx-border-width: 1.5; " +
+                                "-fx-border-radius: 5; " +
+                                "-fx-background-radius: 5;"
+                );
+
+                // 1) VBox infos
+                VBox vboxInfos = new VBox(4);
+                vboxInfos.setAlignment(Pos.TOP_LEFT);
+
+                // Label cliquable pour le nom
+                Label nom = new Label(t.getNom());
+                nom.setStyle("-fx-font-size:16px; -fx-font-weight:bold; -fx-text-fill:#FFA726; -fx-underline:true; -fx-cursor:hand;");
+                nom.setOnMouseEntered(evt -> nom.setStyle("-fx-font-size:16px; -fx-font-weight:bold; -fx-text-fill:red; -fx-underline:true; -fx-cursor:hand;"));
+                nom.setOnMouseExited(evt -> nom.setStyle("-fx-font-size:16px; -fx-font-weight:bold; -fx-text-fill:#FFA726; -fx-underline:true; -fx-cursor:hand;"));
+                nom.setOnMouseClicked(evt -> {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(
+                                getClass().getResource("/type_evenement/DetailsTypeEvenement.fxml")
+                        );
+                        Parent root = loader.load();  // évite le ClassCastException
+                        DetailsTypeEvenementController ctrl = loader.getController();
+                        ctrl.initData(t);
+                        ctrl.setAfficherController(this);
+                        Stage st = new Stage();
+                        st.setScene(new Scene(root));
+                        st.setTitle("Détails Type d'Événement");
+                        st.show();
+                    } catch (IOException ex) {
+                        new Alert(Alert.AlertType.ERROR,
+                                "Impossible d'ouvrir le détail : " + ex.getMessage()
+                        ).showAndWait();
+                    }
+                });
+
+
+                Label cat = new Label("📁 Catégorie : " + t.getCategorieNom());
+                Label desc = new Label(t.getDescription());
+                desc.setWrapText(true);
+                ImageView iv = new ImageView();
                 try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/type_evenement/DetailsTypeEvenement.fxml"));
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(loader.load()));
-
-                    DetailsTypeEvenementController controller = loader.getController();
-                    controller.initData(t);
-                    controller.setAfficherController(this);
-
-                    stage.setTitle("Détails Type d'Événement");
-                    stage.show();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                    Image img = new Image(new File(t.getUrlImage()).toURI().toString(),
+                            100, 80, true, true);
+                    iv.setImage(img);
+                } catch (Exception ex) {
+                    System.err.println("Image non chargée : " + ex.getMessage());
                 }
-            });
+                vboxInfos.getChildren().addAll(nom, cat, desc, iv);
 
-            Label cat = new Label("📁 Catégorie: " + t.getCategorieNom());
-            Label desc = new Label(" | Description: " + t.getDescription());
-            Label image = new Label(" | Image: " + t.getUrlImage());
+                // 2) Spacer
+                Region spacer = new Region();
+                HBox.setHgrow(spacer, Priority.ALWAYS);
 
-            Button btnModifier = new Button("Modifier");
-            btnModifier.setOnAction(e -> {
-                try {
-                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/type_evenement/ModifierTypeEvenement.fxml"));
-                    Stage stage = new Stage();
-                    stage.setScene(new Scene(loader.load()));
+                // 3) VBox boutons (à droite)
+                VBox vboxBtns = new VBox(8);
+                vboxBtns.setAlignment(Pos.TOP_RIGHT);
 
-                    ModifierTypeEvenementController modifierController = loader.getController();
-                    modifierController.initData(t);
-                    modifierController.setAfficherController(this);
+                Button btnModifier = new Button("Modifier");
+                btnModifier.setStyle(
+                        "-fx-background-color: #FFA726; " +
+                                "-fx-text-fill: white; -fx-font-weight: bold; " +
+                                "-fx-pref-width:100px;"
+                );
+                btnModifier.setOnAction(e -> {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(
+                                getClass().getResource("/type_evenement/ModifierTypeEvenement.fxml")
+                        );
+                        Stage st = new Stage();
+                        st.setScene(new Scene(loader.load()));
+                        ModifierTypeEvenementController ctl = loader.getController();
+                        ctl.initData(t);
+                        ctl.setAfficherController(this);
+                        st.setTitle("Modifier Type d'Événement");
+                        st.show();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
+                });
 
-                    stage.setTitle("Modifier Type d'Événement");
-                    stage.show();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
-            });
+                Button btnSupprimer = new Button("Supprimer");
+                btnSupprimer.setStyle(
+                        "-fx-background-color: #FFD54F; " +
+                                "-fx-text-fill: white; -fx-font-weight: bold; " +
+                                "-fx-pref-width:100px;"
+                );
+                btnSupprimer.setOnAction(e -> {
+                    serviceTypeEvenement.supprimerTypeEvenement(t.getId());
+                    refresh();
+                });
 
-            Button btnSupprimer = new Button("Supprimer");
-            btnSupprimer.setOnAction(e -> {
-                serviceTypeEvenement.supprimerTypeEvenement(t.getId());
-                refresh();
-            });
+                vboxBtns.getChildren().addAll(btnModifier, btnSupprimer);
 
-            hbox.getChildren().addAll(nom, cat, desc, image, btnModifier, btnSupprimer);
-            hbox.setStyle("-fx-padding: 10; -fx-border-color: lightgray; -fx-border-radius: 5; -fx-background-radius: 5; -fx-background-color: #f9f9f9;");
-            hbox.setSpacing(10);
-            vboxTypes.getChildren().add(hbox);
-        }
-
-        // Ajouter bouton "Ajouter"
-        Button btnAjouter = new Button("Ajouter un type d'événement");
-        btnAjouter.setOnAction(e -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/type_evenement/AjouterTypeEvenement.fxml"));
-                Stage stage = new Stage();
-                stage.setScene(new Scene(loader.load()));
-
-                AjouterTypeEvenementController ajouterController = loader.getController();
-                ajouterController.setAfficherController(this);
-
-                stage.setTitle("Ajouter un Type d'Événement");
-                stage.show();
-            } catch (IOException ex) {
-                ex.printStackTrace();
+                // 4) Assemblage
+                ligne.getChildren().addAll(vboxInfos, spacer, vboxBtns);
+                vboxTypes.getChildren().add(ligne);
             }
-        });
-        vboxTypes.getChildren().add(btnAjouter);
+
+            // (Optionnel) bouton Ajouter
+            Button btnAjouter = new Button("➕ Ajouter un type d'événement");
+            btnAjouter.setStyle(
+                    "-fx-background-color: #FFA726; -fx-text-fill: white; " +
+                            "-fx-font-weight: bold; -fx-pref-width:200px;"
+            );
+            btnAjouter.setOnAction(e -> {
+                try {
+                    FXMLLoader loader = new FXMLLoader(
+                            getClass().getResource("/type_evenement/AjouterTypeEvenement.fxml")
+                    );
+                    Stage st = new Stage();
+                    st.setScene(new Scene(loader.load()));
+                    AjouterTypeEvenementController ctl = loader.getController();
+                    ctl.setAfficherController(this);
+                    st.setTitle("Ajouter un Type d'Événement");
+                    st.show();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            });
+            vboxTypes.getChildren().add(btnAjouter);
+
+
     }
+
+
+
 
     @FXML
     private void handleRetour() {

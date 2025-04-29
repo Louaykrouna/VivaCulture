@@ -41,7 +41,16 @@
             </HBox>
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <Label text="URL Image :" style="-fx-text-fill: #FFA726; -fx-font-weight: bold;"/>
-                <TextField fx:id="txtUrlImage" promptText="URL de l'image"/>
+                <TextField fx:id="txtUrlImage" prefWidth="250"/>
+                <!-- bouton Parcourir ajouté -->
+                <Button fx:id="btnBrowseImage"
+                        text="Parcourir…"
+                        style="
+              -fx-background-color: #FFD54F;
+              -fx-text-fill: white;
+              -fx-font-weight: bold;
+              -fx-pref-height: 30px;
+              -fx-background-radius: 4;"/>
             </HBox>
             <HBox spacing="10" alignment="CENTER_LEFT">
                 <Label text="Description :" style="-fx-text-fill: #FFA726; -fx-font-weight: bold;"/>

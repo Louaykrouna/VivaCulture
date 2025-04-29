@@ -14,6 +14,8 @@ public class Evenement {
     private String statut;
     private String urlImage;
     private String mail;
+    private double longitude;
+    private double latitude;
 
     private String typeEvenementNom; // Pour affichage avec jointure
 
@@ -21,7 +23,7 @@ public class Evenement {
 
     public Evenement(int id, int typeEvenementId, String titre, String description, String lieu,
                      int nombrePlaces, LocalDate dateDebut, LocalDate dateFin,
-                     String statut, String urlImage, String mail) {
+                     String statut, String urlImage, String mail, double latitude, double longitude) {
         this.id = id;
         this.typeEvenementId = typeEvenementId;
         this.titre = titre;
@@ -33,6 +35,8 @@ public class Evenement {
         this.statut = statut;
         this.urlImage = urlImage;
         this.mail = mail;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     // Getters et Setters...
@@ -72,4 +76,10 @@ public class Evenement {
 
     public String getTypeEvenementNom() { return typeEvenementNom; }
     public void setTypeEvenementNom(String typeEvenementNom) { this.typeEvenementNom = typeEvenementNom; }
+
+    public Double getLongitude() { return longitude; }
+    public void setLongitude(double longitude) { this.longitude = longitude; }
+
+    public Double getLatitude() { return latitude; }
+    public void setLatitude(double latitude) { this.latitude = latitude; }
 }

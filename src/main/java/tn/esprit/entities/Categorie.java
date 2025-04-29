@@ -84,4 +84,5 @@ public class Categorie {
                 ", typeEvenements=" + typeEvenements +
                 '}';
     }
+
 }

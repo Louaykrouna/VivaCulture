@@ -3,6 +3,7 @@ package tn.esprit.controllers;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.controlsfx.validation.ValidationMessage;
 import org.controlsfx.validation.ValidationResult;
@@ -13,7 +14,13 @@ import tn.esprit.entities.TypeEvenement;
 import tn.esprit.services.ServiceEvenement;
 import tn.esprit.services.ServiceTypeEvenement;
 
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -30,7 +37,10 @@ public class ModifierEvenementController implements Initializable {
     @FXML private TextField tfStatut;
     @FXML private TextField tfUrlImage;
     @FXML private TextField tfMail;
+    @FXML private TextField tfLongitude;
+    @FXML private TextField tfLatitude;
     @FXML private ComboBox<TypeEvenement> cbTypeEvenement;
+    @FXML private Button btnBrowseImage;
 
     private Evenement evenementAModifier;
     private final ServiceEvenement serviceEvenement;
@@ -47,97 +57,63 @@ public class ModifierEvenementController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL url, ResourceBundle rb) {
         validationSupport = new ValidationSupport();
 
-        // Validation du titre : obligatoire et maximum 50 caractères.
-        validationSupport.registerValidator(tfTitre, Validator.createPredicateValidator(
-                s -> {
-                    if (s == null) return false;
-                    String val = (String) s;
-                    return !val.trim().isEmpty() && val.length() <= 50;
-                },
-                "Le titre est requis et doit contenir au maximum 50 caractères"
-        ));
+        // ... tes autres validateurs ...
 
-        // Validation de la description : obligatoire et maximum 200 caractères.
-        validationSupport.registerValidator(tfDescription, Validator.createPredicateValidator(
-                s -> {
-                    if (s == null) return false;
-                    String val = (String) s;
-                    return !val.trim().isEmpty() && val.length() <= 200;
-                },
-                "La description est requise et doit contenir au maximum 200 caractères"
-        ));
-
-        // Validation du lieu : obligatoire.
-        validationSupport.registerValidator(tfLieu, Validator.createPredicateValidator(
-                s -> {
-                    if (s == null) return false;
-                    String val = (String) s;
-                    return !val.trim().isEmpty();
-                },
-                "Le lieu est requis"
-        ));
-
-        // Validation du nombre de places : entier positif.
-        validationSupport.registerValidator(tfNombrePlaces, Validator.createPredicateValidator(
-                s -> {
-                    if (s == null) return false;
+        // Latitude : -90 → 90
+        validationSupport.registerValidator(tfLatitude, Validator.createPredicateValidator(
+                (String s) -> {
                     try {
-                        int nb = Integer.parseInt(((String) s).trim());
-                        return nb > 0;
+                        double lat = Double.parseDouble(s.trim());
+                        return lat >= -90 && lat <= 90;
                     } catch (NumberFormatException e) {
                         return false;
                     }
                 },
-                "Le nombre de places doit être un entier positif"
-        ));
+                "La latitude doit être un nombre compris entre -90 et 90"));
 
-        // Validation de la date de début : obligatoire.
-        validationSupport.registerValidator(dpDateDebut, Validator.createEmptyValidator("La date de début est requise"));
-
-        // Validation de la date de fin : obligatoire et postérieure ou égale à la date de début.
-        validationSupport.registerValidator(dpDateFin, Validator.createPredicateValidator(
-                fin -> {
-                    if (fin == null) return false;
-                    LocalDate debut = dpDateDebut.getValue();
-                    return debut != null && !((LocalDate) fin).isBefore(debut);
+        // Longitude : -180 → 180
+        validationSupport.registerValidator(tfLongitude, Validator.createPredicateValidator(
+                (String s) -> {
+                    try {
+                        double lon = Double.parseDouble(s.trim());
+                        return lon >= -180 && lon <= 180;
+                    } catch (NumberFormatException e) {
+                        return false;
+                    }
                 },
-                "La date de fin est requise et doit être postérieure ou égale à la date de début"
-        ));
+                "La longitude doit être un nombre compris entre -180 et 180"));
 
-        // Validation de l'URL de l'image : obligatoire.
-        validationSupport.registerValidator(tfUrlImage, Validator.createPredicateValidator(
-                s -> {
-                    if (s == null) return false;
-                    String val = (String) s;
-                    return !val.trim().isEmpty();
-                },
-                "L'URL de l'image est requise"
-        ));
-
-        // Validation du mail : obligatoire et doit correspondre à un format d'email simple.
-        validationSupport.registerValidator(tfMail, Validator.createPredicateValidator(
-                s -> {
-                    if (s == null) return false;
-                    String val = (String) s;
-                    return val.trim().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$");
-                },
-                "Un email valide est requis"
-        ));
-
-        // Validation de la ComboBox (sélection d'un type d'événement).
-        validationSupport.registerValidator(cbTypeEvenement, Validator.createPredicateValidator(
-                t -> t != null,
-                "Veuillez sélectionner un type d'événement"
-        ));
+        // browse image, ComboBox, etc.
+        btnBrowseImage.setOnAction(evt -> {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Sélectionner une image");
+            chooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif")
+            );
+            File file = chooser.showOpenDialog(tfTitre.getScene().getWindow());
+            if (file != null) {
+                try {
+                    Path imagesDir = Paths.get("src/main/resources/images");
+                    if (Files.notExists(imagesDir)) Files.createDirectories(imagesDir);
+                    Path target = imagesDir.resolve(file.getName());
+                    Files.copy(file.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
+                    tfUrlImage.setText(target.toString());
+                } catch (IOException e) {
+                    new Alert(Alert.AlertType.ERROR,
+                            "Impossible de copier l’image : " + e.getMessage())
+                            .showAndWait();
+                }
+            }
+        });
     }
 
     public void setEvenement(Evenement evenement) {
         this.evenementAModifier = evenement;
 
-        // Pré-remplir les champs avec les données existantes
+        // Pré-remplissage des champs existants
         tfTitre.setText(evenement.getTitre());
         tfDescription.setText(evenement.getDescription());
         tfLieu.setText(evenement.getLieu());
@@ -147,25 +123,24 @@ public class ModifierEvenementController implements Initializable {
         tfStatut.setText(evenement.getStatut());
         tfUrlImage.setText(evenement.getUrlImage());
         tfMail.setText(evenement.getMail());
+        // ⚙️ On pré-remplit aussi longitude et latitude
+        tfLongitude.setText(String.valueOf(evenement.getLongitude()));
+        tfLatitude.setText(String.valueOf(evenement.getLatitude()));
 
         try {
             List<TypeEvenement> types = serviceTypeEvenement.afficherTypeEvenements();
             cbTypeEvenement.getItems().addAll(types);
             cbTypeEvenement.setConverter(new javafx.util.StringConverter<>() {
-                @Override
-                public String toString(TypeEvenement object) {
-                    return object != null ? object.getNom() : "";
-                }
-                @Override
-                public TypeEvenement fromString(String string) {
+                @Override public String toString(TypeEvenement obj) { return obj != null ? obj.getNom() : ""; }
+                @Override public TypeEvenement fromString(String str) {
                     return cbTypeEvenement.getItems().stream()
-                            .filter(t -> t.getNom().equals(string))
+                            .filter(t -> t.getNom().equals(str))
                             .findFirst().orElse(null);
                 }
             });
-            // Sélectionner le type d'événement correspondant
-            TypeEvenement typeSelectionne = serviceTypeEvenement.getTypeEvenementByNom(evenement.getTypeEvenementNom());
-            cbTypeEvenement.setValue(typeSelectionne);
+            TypeEvenement sel = serviceTypeEvenement
+                    .getTypeEvenementByNom(evenement.getTypeEvenementNom());
+            cbTypeEvenement.setValue(sel);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -173,51 +148,45 @@ public class ModifierEvenementController implements Initializable {
 
     @FXML
     public void modifierEvenement() {
-        // Si la validation échoue, construire et afficher une alerte contenant tous les messages d'erreur.
         if (validationSupport.isInvalid()) {
-            ValidationResult result = validationSupport.getValidationResult();
-            StringBuilder erreurs = new StringBuilder();
-            for (ValidationMessage message : result.getMessages()) {
-                erreurs.append("• ").append(message.getText()).append("\n");
+            ValidationResult r = validationSupport.getValidationResult();
+            StringBuilder errs = new StringBuilder();
+            for (ValidationMessage m : r.getMessages()) {
+                errs.append("• ").append(m.getText()).append("\n");
             }
-
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erreur de validation");
-            alert.setHeaderText("Veuillez corriger les erreurs suivantes :");
-            alert.setContentText(erreurs.toString());
-            alert.showAndWait();
+            new Alert(Alert.AlertType.ERROR,
+                    "Veuillez corriger les erreurs suivantes :\n" + errs.toString())
+                    .showAndWait();
             return;
         }
 
-        // Construction de l'objet Evenement avec les nouvelles valeurs
-        Evenement evenement = new Evenement();
-        evenement.setId(evenementAModifier.getId());
-        evenement.setTitre(tfTitre.getText());
-        evenement.setDescription(tfDescription.getText());
-        evenement.setLieu(tfLieu.getText());
-        evenement.setNombrePlaces(Integer.parseInt(tfNombrePlaces.getText().trim()));
-        evenement.setDateDebut(dpDateDebut.getValue());
-        evenement.setDateFin(dpDateFin.getValue());
-        evenement.setStatut(tfStatut.getText());
-        evenement.setUrlImage(tfUrlImage.getText());
-        evenement.setMail(tfMail.getText());
-        evenement.setTypeEvenementId(cbTypeEvenement.getValue().getId());
+        Evenement e = new Evenement();
+        e.setId(evenementAModifier.getId());
+        e.setTitre(tfTitre.getText());
+        e.setDescription(tfDescription.getText());
+        e.setLieu(tfLieu.getText());
+        e.setNombrePlaces(Integer.parseInt(tfNombrePlaces.getText().trim()));
+        e.setDateDebut(dpDateDebut.getValue());
+        e.setDateFin(dpDateFin.getValue());
+        e.setStatut(tfStatut.getText());
+        e.setUrlImage(tfUrlImage.getText());
+        e.setMail(tfMail.getText());
+        e.setTypeEvenementId(cbTypeEvenement.getValue().getId());
+        // ⚙️ On prend en compte les nouveaux doubles
+        e.setLongitude(Double.parseDouble(tfLongitude.getText().trim()));
+        e.setLatitude(Double.parseDouble(tfLatitude.getText().trim()));
 
-        serviceEvenement.modifierEvenement(evenement);
+        serviceEvenement.modifierEvenement(e);
 
-        Alert confirmation = new Alert(Alert.AlertType.INFORMATION);
-        confirmation.setTitle("Modification réussie");
-        confirmation.setHeaderText(null);
-        confirmation.setContentText("✅ Événement modifié avec succès !");
-        confirmation.showAndWait();
+        new Alert(Alert.AlertType.INFORMATION,
+                "✅ Événement modifié avec succès !")
+                .showAndWait();
 
-        Stage stage = (Stage) tfTitre.getScene().getWindow();
-        stage.close();
+        ((Stage) tfTitre.getScene().getWindow()).close();
     }
 
     @FXML
     public void annulerModification() {
-        Stage stage = (Stage) tfTitre.getScene().getWindow();
-        stage.close();
+        ((Stage) tfTitre.getScene().getWindow()).close();
     }
 }

@@ -1,12 +1,19 @@
-// ✅ ServiceCategorie.java
+// ServiceCategorie.java
 package tn.esprit.services;
 
 import tn.esprit.entities.Categorie;
 import tn.esprit.utils.MyDataBase;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 public class ServiceCategorie {
     private final Connection conn;
@@ -40,7 +47,7 @@ public class ServiceCategorie {
                         rs.getString("statut"),
                         rs.getString("url_image")
                 );
-                c.setId(rs.getInt("id")); // ✅ Récupère l'ID ici !
+                c.setId(rs.getInt("id"));
                 list.add(c);
             }
         } catch (SQLException e) {
@@ -49,24 +56,18 @@ public class ServiceCategorie {
         return list;
     }
 
-    public boolean updateCategorie(Categorie c) {
+    public boolean updateCategorie(Categorie c) throws SQLException {
         String req = "UPDATE categorie SET nom=?, description=?, statut=?, url_image=? WHERE id=?";
-        try {
-            PreparedStatement ps = conn.prepareStatement(req);
+        try (PreparedStatement ps = conn.prepareStatement(req)) {
             ps.setString(1, c.getNom());
             ps.setString(2, c.getDescription());
             ps.setString(3, c.getStatut());
             ps.setString(4, c.getUrl_image());
             ps.setInt(5, c.getId());
-
             ps.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
         }
+        return true;
     }
-
 
     public void supprimerCategorie(int id) {
         String sql = "DELETE FROM categorie WHERE id=?";
@@ -78,6 +79,7 @@ public class ServiceCategorie {
             e.printStackTrace();
         }
     }
+
     public List<String> afficherCategoriesNoms() {
         List<String> list = new ArrayList<>();
         String req = "SELECT nom FROM categorie";
@@ -95,15 +97,17 @@ public class ServiceCategorie {
         String req = "SELECT id FROM categorie WHERE nom = ?";
         try (PreparedStatement pst = conn.prepareStatement(req)) {
             pst.setString(1, nom);
-            ResultSet rs = pst.executeQuery();
-            if (rs.next()) {
-                return rs.getInt("id");
+            try (ResultSet rs = pst.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("id");
+                }
             }
         } catch (SQLException e) {
             System.out.println("❌ Erreur récupération catégorie par nom : " + e.getMessage());
         }
-        return -1; // Retourne -1 si la catégorie n'existe pas
+        return -1;
     }
+
     public String getCategorieNomById(int id) {
         String req = "SELECT nom FROM categorie WHERE id = ?";
         try (PreparedStatement pst = conn.prepareStatement(req)) {
@@ -118,4 +122,27 @@ public class ServiceCategorie {
         }
         return null;
     }
+
+    /**
+     * Retourne un map { nomCatégorie → nombre d'événements }
+     */
+    public Map<String, Integer> getStatsEvenementsParCategorie() throws SQLException {
+        String sql = """
+        SELECT c.nom AS categorie, COUNT(e.id) AS total
+         FROM evenement e
+         JOIN type_evenement te ON e.type_evenement_id = te.id
+         JOIN categorie c        ON te.categorie_id        = c.id
+        GROUP BY c.nom
+        """;
+
+        Map<String,Integer> stats = new HashMap<>();
+        try (PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                stats.put(rs.getString("categorie"), rs.getInt("total"));
+            }
+        }
+        return stats;
+    }
+
 }

@@ -3,31 +3,27 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="tn.esprit.controllers.ModifierEvenementController"
+            fx:controller="tn.esprit.controllers.DetailsEvenementController"
             style="-fx-background-color: white;">
     <children>
-        <VBox spacing="15" alignment="CENTER" AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0"
-              style="-fx-padding: 30;">
+        <VBox spacing="15" alignment="TOP_LEFT" AnchorPane.topAnchor="10"
+              AnchorPane.leftAnchor="10" style="-fx-padding: 20;">
 
-            <Label text="✏️ Modifier l'Événement" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #FFA726;" />
+            <!-- Ici on met bien les fx:id déclarés dans le controller -->
+            <Label fx:id="lblTitre" text="Titre:" style="-fx-font-size:18px; -fx-font-weight:bold;"/>
+            <Label fx:id="lblDescription" text="Description:" wrapText="true"/>
+            <Label fx:id="lblLieu" text="Lieu:"/>
+            <Label fx:id="lblDateDebut" text="Date début:"/>
+            <Label fx:id="lblDateFin" text="Date fin:"/>
+            <Label fx:id="lblStatut" text="Statut:"/>
+            <Label fx:id="lblUrlImage" text="URL Image:"/>
+            <Label fx:id="lblMail" text="E-mail:"/>
+            <Label fx:id="lblLongitude" text="Longitude:"/>
+            <Label fx:id="lblLatitude" text="Latitude:"/>
+            <Label fx:id="lblTypeEvenement" text="TypeEvenement:"/>
 
-            <HBox spacing="10"><Label text="Titre :" minWidth="150"/><TextField fx:id="tfTitre" /></HBox>
-            <HBox spacing="10"><Label text="Type d'événement :" minWidth="150"/><ComboBox fx:id="cbTypeEvenement" /></HBox>
-            <HBox spacing="10"><Label text="Description :" minWidth="150"/><TextField fx:id="tfDescription" /></HBox>
-            <HBox spacing="10"><Label text="Lieu :" minWidth="150"/><TextField fx:id="tfLieu" /></HBox>
-            <HBox spacing="10"><Label text="Nombre de places :" minWidth="150"/><TextField fx:id="tfNombrePlaces" /></HBox>
-            <HBox spacing="10"><Label text="Date de début :" minWidth="150"/><DatePicker fx:id="dpDateDebut" /></HBox>
-            <HBox spacing="10"><Label text="Date de fin :" minWidth="150"/><DatePicker fx:id="dpDateFin" /></HBox>
-            <HBox spacing="10"><Label text="Statut :" minWidth="150"/><TextField fx:id="tfStatut" /></HBox>
-            <HBox spacing="10"><Label text="URL de l'image :" minWidth="150"/><TextField fx:id="tfUrlImage" /></HBox>
-            <HBox spacing="10"><Label text="E-mail :" minWidth="150"/><TextField fx:id="tfMail" /></HBox>
-
-            <HBox spacing="20" alignment="CENTER">
-                <Button text="💾 Modifier" onAction="#modifierEvenement"
-                        style="-fx-background-color: #FFD54F; -fx-text-fill: white;"/>
-                <Button text="❌ Annuler" onAction="#annulerModification"
-                        style="-fx-background-color: #FFB74D; -fx-text-fill: white;"/>
-            </HBox>
+            <Button fx:id="btnMap" text="Voir la carte" onAction="#handleMap"/>
+            <Button text="↩️ Retour" onAction="#handleRetour"/>
         </VBox>
     </children>
 </AnchorPane>

@@ -5,7 +5,10 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
 
+<?import java.lang.String?>
 <AnchorPane prefHeight="400.0" prefWidth="600.0"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
@@ -35,24 +38,47 @@
                       -fx-background-radius: 4;
                       -fx-border-radius: 4;">
 
+            <!-- Nom -->
+            <Label fx:id="lblNomError" text="" visible="true" />
             <HBox spacing="10.0" alignment="CENTER_LEFT">
                <Label text="Nom" style="-fx-text-fill: orange; -fx-font-weight: bold;"/>
                <TextField fx:id="txtFNom" prefWidth="300.0"/>
             </HBox>
 
+            <!-- Description -->
+            <Label fx:id="lblDescError" text="" visible="true" />
             <HBox spacing="10.0" alignment="CENTER_LEFT">
                <Label text="Description" style="-fx-text-fill: orange; -fx-font-weight: bold;"/>
                <TextField fx:id="txtFDescription" prefWidth="300.0"/>
             </HBox>
 
+            <!-- Statut -->
+            <Label fx:id="lblStatutError" text="" visible="true" />
             <HBox spacing="10.0" alignment="CENTER_LEFT">
                <Label text="Statut" style="-fx-text-fill: orange; -fx-font-weight: bold;"/>
-               <TextField fx:id="txtFStatut" prefWidth="300.0"/>
+               <ComboBox fx:id="comboStatut" prefWidth="300.0">
+                  <items>
+                     <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Actif"/>
+                        <String fx:value="Non actif"/>
+                     </FXCollections>
+                  </items>
+               </ComboBox>
             </HBox>
 
+            <!-- URL Image -->
+            <Label fx:id="lblImageError" text="" visible="true" />
             <HBox spacing="10.0" alignment="CENTER_LEFT">
                <Label text="URL Image" style="-fx-text-fill: orange; -fx-font-weight: bold;"/>
-               <TextField fx:id="txtFurl_image" prefWidth="300.0"/>
+               <TextField fx:id="txtFurl_image" prefWidth="250.0"/>
+               <Button fx:id="btnBrowseImage"
+                       text="Parcourir…"
+                       style="
+                         -fx-background-color: #ffeb3b;
+                         -fx-text-fill: white;
+                         -fx-font-weight: bold;
+                         -fx-pref-height: 30px;
+                         -fx-background-radius: 4;"/>
             </HBox>
          </VBox>
 

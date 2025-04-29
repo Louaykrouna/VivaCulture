@@ -1,58 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0"
+<AnchorPane prefWidth="1200" prefHeight="700.0"
             xmlns="http://javafx.com/javafx/23.0.1"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="tn.esprit.controllers.AfficherTypeEvenementController"
             style="-fx-background-color: white;">
 
-    <!-- Titre -->
-    <Label layoutX="20" layoutY="20"
-           text="🎉 Liste des Types d'Événements"
-           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #FFA726;"/>
+    <children>
+        <!-- Titre principal -->
+        <Label layoutX="20" layoutY="20"
+               text="🎉 Liste des types d'évènements"
+               style="-fx-font-size:20px; -fx-font-weight:bold; -fx-text-fill:#FFA726;"/>
 
-    <!-- Bloc principal avec bordure orange -->
-    <VBox layoutX="20" layoutY="60" spacing="15"
-          style="
-            -fx-background-color: white;
-            -fx-border-color: #FFA726;
-            -fx-border-width: 1.5;
-            -fx-border-radius: 6;
-            -fx-background-radius: 6;
-            -fx-padding: 15;">
-
-        <!-- Liste des types -->
-        <VBox fx:id="vboxTypes" spacing="10"
+        <!-- Conteneur global orange -->
+        <VBox layoutX="20" layoutY="60" prefWidth="860.0" prefHeight="520.0"
+              spacing="15"
               style="
-                -fx-background-color: #fffbea;
-                -fx-padding: 12;
-                -fx-background-radius: 4;
-                -fx-border-radius: 4;"/>
-    </VBox>
+                 -fx-background-color: white;
+                 -fx-border-color: #FFA726;
+                 -fx-border-width: 1.5;
+                 -fx-border-radius: 6;
+                 -fx-background-radius: 6;
+                 -fx-padding: 15;">
+            <children>
+                <!-- Zone défilante -->
+                <ScrollPane fx:id="scrollTypes"
+                            fitToWidth="true"
+                            fitToHeight="true"
+                            prefHeight="440.0"
+                            style="-fx-background-color: transparent;">
+                    <content>
+                        <VBox fx:id="vboxTypes"
+                              spacing="10"
+                              style="
+                                -fx-background-color: #fffbea;
+                                -fx-background-radius: 4;
+                                -fx-border-radius: 4;
+                                -fx-padding: 12;" />
+                    </content>
+                </ScrollPane>
 
-    <!-- Boutons en bas -->
-    <Button layoutX="20" layoutY="360"
-            text="← Retour aux catégories" onAction="#handleRetour"
-            style="
-              -fx-background-color: #FFD54F;
-              -fx-text-fill: white;
-              -fx-font-weight: bold;
-              -fx-pref-width: 180px;
-              -fx-pref-height: 36px;
-              -fx-background-radius: 4;"/>
-
-    <Button layoutX="400" layoutY="360"
-            text="Liste d'Événements" onAction="#handleListeEvenements"
-            style="
-              -fx-background-color: #FFB84D;
-              -fx-text-fill: white;
-              -fx-font-weight: bold;
-              -fx-pref-width: 180px;
-              -fx-pref-height: 36px;
-              -fx-background-radius: 4;"/>
+                <!-- Barre de boutons -->
+                <HBox spacing="20" alignment="CENTER_LEFT">
+                    <Button text="← Retour aux catégories"
+                            onAction="#handleRetour"
+                            style="
+                              -fx-background-color: #FFD54F;
+                              -fx-text-fill: white;
+                              -fx-font-weight: bold;
+                              -fx-pref-width:180px;
+                              -fx-pref-height:36px;
+                              -fx-background-radius:4;" />
+                    <Button text="Liste d'évènements"
+                            onAction="#handleListeEvenements"
+                            style="
+                              -fx-background-color: #FFB84D;
+                              -fx-text-fill: white;
+                              -fx-font-weight: bold;
+                              -fx-pref-width:180px;
+                              -fx-pref-height:36px;
+                              -fx-background-radius:4;" />
+                </HBox>
+            </children>
+        </VBox>
+    </children>
 </AnchorPane>

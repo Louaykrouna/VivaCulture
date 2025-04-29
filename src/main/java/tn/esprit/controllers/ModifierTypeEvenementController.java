@@ -5,6 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.controlsfx.validation.ValidationSupport;
 import org.controlsfx.validation.Validator;
@@ -12,6 +13,12 @@ import tn.esprit.entities.TypeEvenement;
 import tn.esprit.services.ServiceCategorie;
 import tn.esprit.services.ServiceTypeEvenement;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -44,6 +51,9 @@ public class ModifierTypeEvenementController {
     // Pour la validation ControlsFX
     private ValidationSupport validationSupport;
 
+    @FXML
+    private Button btnBrowseImage;
+
     public ModifierTypeEvenementController() {
         try {
             serviceTypeEvenement = new ServiceTypeEvenement();
@@ -62,6 +72,30 @@ public class ModifierTypeEvenementController {
         setupValidation();
         // Affiche immédiatement les décorations d’erreur sur les champs vides
         validationSupport.initInitialDecoration();
+        // ------------ ajouté ------------
+        btnBrowseImage.setOnAction(evt -> {
+            FileChooser chooser = new FileChooser();
+            chooser.setTitle("Sélectionner une image");
+            chooser.getExtensionFilters().add(
+                    new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg", "*.gif")
+            );
+            File file = chooser.showOpenDialog(comboBoxCategorie.getScene().getWindow());
+            if (file != null) {
+                try {
+                    Path imagesDir = Paths.get("src/main/resources/images");
+                    if (Files.notExists(imagesDir)) {
+                        Files.createDirectories(imagesDir);
+                    }
+                    Path target = imagesDir.resolve(file.getName());
+                    Files.copy(file.toPath(), target, StandardCopyOption.REPLACE_EXISTING);
+                    txtUrlImage.setText(target.toString());
+                } catch (IOException e) {
+                    new Alert(Alert.AlertType.ERROR,
+                            "Impossible de copier l’image : " + e.getMessage())
+                            .showAndWait();
+                }
+            }
+        });
     }
 
     /**
@@ -106,14 +140,7 @@ public class ModifierTypeEvenementController {
                 Validator.createEmptyValidator("⚠ Le nom est requis")
         );
 
-        validationSupport.registerValidator(
-                txtUrlImage,
-                true,
-                Validator.createPredicateValidator(
-                        url -> url != null && url.toString().matches("https?://.+"),
-                        "⚠ L'URL doit être valide (commence par http:// ou https://)"
-                )
-        );
+
 
         validationSupport.registerValidator(
                 txtDescription,
